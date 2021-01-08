@@ -109,7 +109,7 @@ Notes:
 
 ## Signal
 
-TYPE=10
+TYPE=6
 
 ```
 type Signal {
@@ -122,7 +122,7 @@ to map these signals to signals appropriate for the OS.
 
 ## Exit
 
-Type=11
+Type=7
 
 ```
 type Exit {
