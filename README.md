@@ -107,9 +107,31 @@ Notes:
  - each is split into its own type to save the enum byte.
  - the data is fixed length in terms of the BARE spec, but the actual length is computed based on the packet header.
 
+## Close
+
+TYPE=7/8/9
+
+Sent when a file closes.
+
+```
+type StdinClose {}
+```
+
+```
+type StdoutClose {}
+```
+
+```
+type StderrClose {}
+```
+
+Notes:
+ - each is split into its own type to save the enum byte.
+ - the data is fixed length in terms of the BARE spec, but the actual length is computed based on the packet header.
+
 ## Signal
 
-TYPE=7
+TYPE=10
 
 ```
 type Signal {
@@ -122,7 +144,7 @@ to map these signals to signals appropriate for the OS.
 
 ## Exit
 
-Type=8
+Type=11
 
 ```
 type Exit {
