@@ -81,48 +81,26 @@ type WindowAdjust {
 
 ## Data
 
-TYPE=4/5/6
+TYPE=4
 
 Data packets containing application input/output.
 
 ```
-type StdinData {
+type Data {
+  descriptor: (Stdin|Stdout|Stderr)
   data: data<$remaining>
 }
 ```
-
-```
-type StdoutData {
-  data: data<$remaining>
-}
-```
-
-```
-type StderrData {
-  data: data<$remaining>
-}
-```
-
-Notes:
- - each is split into its own type to save the enum byte.
- - the data is fixed length in terms of the BARE spec, but the actual length is computed based on the packet header.
-
 ## Close
 
-TYPE=7/8/9
+TYPE=5
 
 Sent when a file closes.
 
 ```
-type StdinClose {}
-```
-
-```
-type StdoutClose {}
-```
-
-```
-type StderrClose {}
+type Close {
+  descriptor: (Stdin|Stdout|Stderr)
+}
 ```
 
 Notes:
