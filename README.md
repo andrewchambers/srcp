@@ -109,6 +109,8 @@ Notes:
 
 ## Signal
 
+TYPE=7
+
 ```
 type Signal {
   sig: INT | TERM
@@ -119,6 +121,8 @@ Note - For the current version of the spec, only a subset of signals are defined
 to map these signals to signals appropriate for the OS.
 
 ## Exit
+
+Type=8
 
 ```
 type Exit {
