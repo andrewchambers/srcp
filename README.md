@@ -147,6 +147,6 @@ the end of the connection.
 
 On a reply of AckExec the server and client being to exchange data packets, signal packets and close packets. 
 
-The server is permitted to send an exit packet after both stdout and stderr have been closed.
-
 Stdin/Stderr/Stdout all maintain a data window counter for flow control, starting full, where more data may only be sent if the other end confirms it with a window adjust message.
+
+The server may send an exit packet after both stdout and stderr have been closed.
