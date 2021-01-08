@@ -19,13 +19,14 @@ Each packet consists of a header, followed by a BARE encoded message.
 
 A packet type followed by a size, where size is the amount of data to be read from the connection.
 
-``` TYPE:u8 ++ SIZE:u32/be  ```
+``` type:u8 ++ size:u32/be  ```
 
 ## Packets
 
 ### Exec
 
-TYPE=0
+Type=0
+Direction=client->server
 
 Intial packet, a request from the client to the server. If command is not specified, the server may 
 choose a command.
@@ -41,7 +42,7 @@ type Exec {
 
 ## AckExec
 
-TYPE=1
+Type=1
 
 Ack packet confirming exec.
 
@@ -56,9 +57,11 @@ type AckExec {
 
 ## NackExec
 
-TYPE=2
+Type=2
+Direction=server->client
 
 Nack packet rejecting exec.
+
 
 ```
 type NackExec {
@@ -68,7 +71,8 @@ type NackExec {
 
 ## WindowAdjust
 
-TYPE=3
+Type=3
+Direction=client<->server
 
 Window adjust packet used for flow control, similar to how ssh channels perform flow control.
 
@@ -81,7 +85,8 @@ type WindowAdjust {
 
 ## Data
 
-TYPE=4
+Type=4
+Direction=client<->server
 
 Data packets containing application input/output.
 
@@ -93,7 +98,8 @@ type Data {
 ```
 ## Close
 
-TYPE=5
+Type=5
+Direction=client<->server
 
 Sent when a file closes.
 
@@ -109,7 +115,8 @@ Notes:
 
 ## Signal
 
-TYPE=6
+Type=6
+Direction=client->server
 
 ```
 type Signal {
@@ -123,6 +130,7 @@ to map these signals to signals appropriate for the OS.
 ## Exit
 
 Type=7
+Direction=server->client
 
 ```
 type Exit {
