@@ -94,9 +94,10 @@ Data packets containing application input/output.
 ```
 type Data {
   descriptor: (Stdin|Stdout|Stderr)
-  data: data<$remaining>
+  data: data<$size-1>
 }
 ```
+
 ## Close
 
 Type=5
