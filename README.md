@@ -43,6 +43,7 @@ type Exec {
 ## AckExec
 
 Type=1
+Direction=server->client
 
 Ack packet confirming exec.
 
