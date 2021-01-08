@@ -11,15 +11,21 @@ authentication and encryption to be provided by the underlying transport protoco
 
 # Specification
 
+
+Each packet consists of a header, followed by a BARE encoded message.
+
+
 ## Packet Headers
 
-Each packet consists of a header
+A packet type followed by a size, where size is the amount of data to be read from the connection.
 
 ``` TYPE:u8 ++ SIZE:u32/be  ```
 
 ## Packets
 
 ### Exec
+
+TYPE=0
 
 Intial packet, a request from the client to the server. If command is not specified, the server may 
 choose a command.
@@ -35,6 +41,8 @@ type Exec {
 
 ## AckExec
 
+TYPE=1
+
 Ack packet confirming exec.
 
 ```
@@ -46,8 +54,9 @@ type AckExec {
 }
 ```
 
+## NackExec
 
-## AckExec
+TYPE=2
 
 Nack packet rejecting exec.
 
@@ -57,8 +66,9 @@ type NackExec {
 }
 ```
 
-
 ## WindowAdjust
+
+TYPE=3
 
 Window adjust packet used for flow control, similar to how ssh channels perform flow control.
 
@@ -71,15 +81,31 @@ type WindowAdjust {
 
 ## Data
 
+TYPE=4/5/6
+
+Data packets containing application input/output.
+
 ```
-type Data {
-  descriptor: (Stdin|Stdout|Stderr)
+type StdinData {
   data: data<$remaining>
 }
 ```
 
-Note - the data is fixed length in terms of the BARE spec, but the actual length is computed based on the
-packet header.
+```
+type StdoutData {
+  data: data<$remaining>
+}
+```
+
+```
+type StderrData {
+  data: data<$remaining>
+}
+```
+
+Notes:
+ - each is split into its own type to save the enum byte.
+ - the data is fixed length in terms of the BARE spec, but the actual length is computed based on the packet header.
 
 ## Signal
 
